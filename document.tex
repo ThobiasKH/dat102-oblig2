@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}   
+\usepackage{amsfonts}  
+\usepackage{amssymb} 
+\usepackage{graphicx} 
+\usepackage{hyperref}  
+\usepackage{longtable}
+
+% Title and author
+\title{Oblig 2 Svar}
+\author{Group ?}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Oppgave 1}
+
+\subsection*{Test Metodikk}
+Vi implementerte alle 4 algoritmene for å så teste de i main metoden i U7O1/Oppgave1.java. 
+Vi fikk tiden ved å bruke System.nanoTime() ved kver metodekall.
+
+\subsection*{Resultater}
+Her er et eksempel på et resultat vi fikk når vi testet for $100,000$ elementer:
+\begin{itemize}
+    \item Vanlig InsertionSort: $9,828$ms
+    \item MinFirst InsertionSort: $9,406$ms
+    \item TwoAtATime InsertionSort: $7,959$ms 
+    \item Combined InsertionSort: $7,026$ms
+\end{itemize}
+Det er viktig å nevne at vi fikk enorm forskjell i resultat fra forsøk til forsøk, noe som kan tyde på en feil i metodikken vår. Det var et tilfelle der MinFirst metoden brukte $2x$ så mye tid som alle andre algoritmer. Ved veldig småe arrays var det vanligst at den vanlige InsertionSort-en gjorde det best, noe som gir mening med tanke på at det er den som gjør minst operasjoner.
+Vi observerer tydelig hvordan InsertionSort ikke er den beste algoritmen for store mengder data ettersom ved $100,000$ elementer tar det gjerne over 10s å sortere listen i vårt test-miljø.
+
+\section*{Oppgave 2}
+
+\subsection*{a)}
+\subsection*{Insertion Sort}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+N & Antall målinger & Målt tid (gjennomsnitt) & Teoretisk tid $c \cdot f(n)$  \\ \hline
+$32,000$ & 3 & $428,923,900ns \approx 428ms$ & $428ms$\\ \hline
+$64,000$ & 3 & $3,514,316,013ns \approx 3,514ms$ & $1,713ms$\\ \hline
+$128,000$ & 3 & $9,623,484,732ns \approx 9,623ms$ & $6,853ms$\\ \hline
+\end{tabular}
+\caption{Insertion Sort}
+\end{table}
+For å finne $c \cdot f(n)$ antar vi $T(n) = c \cdot n^2$ som betyr $c = T(n) \div n^2$. 
+
+Gitt $T(n) = 428ms$ har vi $c = \dfrac{428ms}{(32,000)^2}$ som vi kan bruke til
+
+å finne teoretisk tid for andre verdier av $N$.  
+
+\subsection*{Selection Sort}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+N & Antall målinger & Målt tid (gjennomsnitt) & Teoretisk tid $c \cdot f(n)$  \\ \hline
+$32,000$ & 3 & $380,996,609 ns \approx 380 ms$ & $380ms$\\ \hline
+$64,000$ & 3 & $1,221,438,068 ns \approx 1,221 ms$ & $1,517ms$\\ \hline
+$128,000$ & 3 & $7,192,890,455 ns \approx 7,192 ms$ & $6,070ms$\\ \hline
+\end{tabular}
+\caption{Selection Sort}
+\end{table}
+$380ms = c \cdot (32,000)^2 \leftrightarrow c = \dfrac{380ms}{(32,000)^2} \approx 3.71 \cdot 10^{-7}ms$
+
+\break
+\subsection*{Quick Sort}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+N & Antall målinger & Målt tid (gjennomsnitt) & Teoretisk tid $c \cdot f(n)$  \\ \hline
+$32,000$ & 1000 & $2,400,351ns \approx 2ms$ & $2ms$\\ \hline
+$64,000$ & 1000 & $5,200,779ns \approx 5ms$ & $4.27ms$\\ \hline
+$128,000$ & 1000 & $15,935,803ns \approx 16ms$ & $9.07ms$\\ \hline
+\end{tabular}
+\caption{Quick Sort}
+\end{table}
+$O(n) = n \cdot \log n$ $\rightarrow$ $2ms = c \cdot (32,000 \cdot \log_2 32,200) \leftrightarrow c \approx \dfrac{1ms}{240,000} 
+
+\approx 4.17 \cdot 10^{-6}ms$
+
+Vi bruker $\log_2$ siden vi deler array opp $\dfrac{n}{2} \rightarrow \dfrac{n}{4} \rightarrow \dfrac{n}{8} \rightarrow ... $. 
+
+Vi får $\log_2 n$ ``nivåer i treet'' og ved hvert nivå gjøres det
+
+en mengde arbeid proporsjonellt til $n$, så vi sier $f(n) = n \cdot \log_2 n$.
+
+Det samme gjelder for \texttt{Merge Sort}.
+
+
+
+\subsection*{Merge Sort}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+N & Antall målinger & Målt tid (gjennomsnitt) & Teoretisk tid $c \cdot f(n)$  \\ \hline
+$32,000$ & 500 & $4,005,655ns \approx 4ms$ & $4ms$\\ \hline
+$64,000$ & 1000 & $8,592,282ns \approx 8ms$ & $8.53ms$\\ \hline
+$128,000$ & 1000 & $24,233,961ns \approx 24ms$ & $17.70ms$\\ \hline
+\end{tabular}
+\caption{Merge Sort}
+\end{table}
+
+$c \approx \dfrac{2}{240,000} \approx 8.33 \cdot 10^{-6}$
+
+\break
+\subsection*{b)}
+Et array med $10,000$ identiske elementer tar rundt $114ms$ i gjennomsnitt. 
+Dette er fordi alle elementer i array-et er lik pivot-en. 
+Dette fører til at Quick Sort ikke kan partisjonere problemet effektivt, 
+og tidskompleksiteten blir nærmere $O(n) = n^2$. 
+
+\end{document}
