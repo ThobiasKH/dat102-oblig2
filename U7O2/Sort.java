@@ -4,17 +4,17 @@ import java.util.function.Consumer;
 public class Sort {
     public static void main(String[] args) {
         int[] sizes = {32000, 64000, 128000}; 
-        int numTrials = 500; 
+        int numTrials = 1; 
 
-        //for (int size : sizes) {
-          //  Integer[] arr = generateRandomArray(size);
+        for (int size : sizes) {
+            Integer[] arr = generateRandomArray(size);
 
-            //System.out.println("\nN = " + size);
-            //benchmarkSort("Insertion Sort", arr, Sort::insertionSort, numTrials);
-            //benchmarkSort("Selection Sort", arr, Sort::selectionSort, numTrials);
-            //benchmarkSort("Quick Sort", arr, a -> quickSort(a, 0, a.length - 1), numTrials);
-            //benchmarkSort("Merge Sort", arr, Sort::mergeSort, numTrials);
-        //}
+            System.out.println("\nN = " + size);
+            benchmarkSort("Insertion Sort", arr, Sort::insertionSort, numTrials);
+            benchmarkSort("Selection Sort", arr, Sort::selectionSort, numTrials);
+            benchmarkSort("Quick Sort", arr, a -> quickSort(a, 0, a.length - 1), numTrials);
+            benchmarkSort("Merge Sort", arr, Sort::mergeSort, numTrials);
+        }
 
         Integer[] identicalArray = new Integer[10000];
         for (int i = 0; i < identicalArray.length; i++) {
